@@ -1,0 +1,61 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: appsec
+namePrefix: prod-
+nameSuffix: "-001"
+
+resources:
+- namespace.yaml
+- mainIngress.yaml
+- k3s-postgresql
+- k3s-sonarqube
+- k3s-jenkins
+- k3s-keycloak
+
+configMapGenerator:
+- name: postgresql-config
+  behavior: create 
+  envs:
+  - configs/pgsql.config
+- name: sonarqube-config
+  behavior: create
+  envs:
+  - configs/sonarqube.config
+- name: jenkins-config
+  behavior: create
+  envs:
+  - configs/jenkins.config
+- name: keycloak-config
+  behavior: create
+  envs:
+  - configs/keycloak.config
+
+secretGenerator:
+- name: postgresql-secret
+  behavior: create
+  envs:
+  - secrets/pgsql.secret
+- name: keycloak-secret
+  behavior: create
+  envs:
+  - secrets/keycloak.secret
+# - name: tls-secrets
+#   files:
+#   - "secrets/tls.crt"
+#   - "secrets/tls.key"
+#   type: "kubernetes.io/tls"
+
+vars:
+- name: POSTGRESQLSERVICE
+  objref:
+    kind: Service
+    name: postgresql
+    apiVersion: v1
+- name: POSTGRESQLNAMESPACE
+  objref:
+    kind: Service
+    name: postgresql
+    apiVersion: v1
+  fieldref:
+    fieldpath: metadata.namespace

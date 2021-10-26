@@ -1,0 +1,35 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mainingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.rule.type: PathPrefixStrip
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    ingress.kubernetes.io/ssl-proxy-headers: "X-Forwarded-Proto: https"
+    ingress.kubernetes.io/custom-request-headers: "X-Forwarded-Proto: https"
+    ingress.kubernetes.io/custom-response-headers: "X-Forwarded-Proto: https"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /sonar
+            backend:
+              serviceName: sonarqube-service
+              servicePort: 9000
+          - path: /jenkins 
+            backend:
+              serviceName: jenkins-service
+              servicePort: 8080
+          - path: /auth
+            backend:
+              serviceName: keycloak-service
+              servicePort: 8080
+          # - path: /
+          #   backend:
+          #     serviceName: portalfe
+          #     servicePort: 3000
+  tls:
+    - secretName: tls-secrets

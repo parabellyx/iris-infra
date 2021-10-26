@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+spec:
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+        - image: postgres:13.4
+          name: postgresql
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data/pgdata
+              name: postgresqldatadir
+          envFrom:
+            - configMapRef:
+                name: postgresql-config
+            - secretRef:
+                name: postgresql-secret
+      volumes:
+        - name: postgresqldatadir
+          persistentVolumeClaim:
+            claimName: postgresql-pv-claim
+          
