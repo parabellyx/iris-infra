@@ -25,4 +25,5 @@ kubectl kustomize | kubectl apply -f -
 
 unset KEYCLOAK_PASSWORD POSTGRES_PASSWORD SONAR_JDBC_PASSWORD
 
-sudo kubectl exec -it --namespace=appsec $(sudo kubectl get pods --namespace=appsec | awk '/jenkins/ {print $1}') -- cat /var/jenkins_home/secrets/initialAdminPassword > $HOME/jenkins_creds
+echo "sudo kubectl exec -it --namespace=appsec $(sudo kubectl get pods --namespace=appsec | awk '/jenkins/ {print $1}') -- cat /var/jenkins_home/secrets/initialAdminPassword" > $HOME/fetchJenkinsCred.sh
+chmod +x $HOME/fetchJenkinsCred.sh
