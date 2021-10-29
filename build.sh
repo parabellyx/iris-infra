@@ -12,7 +12,7 @@ sysctl -w vm.max_map_count=524288
 echo -n "vm.max_map_count=524288" | sudo tee -a /etc/sysctl.conf
 
 # Clone repo
-mkdir -o /opt/iris && cd /opt/iris
+mkdir -p /opt/iris && cd /opt/iris
 git clone https://github.com/parabellyx/iris-infra.git
 cd iris-infra
 
