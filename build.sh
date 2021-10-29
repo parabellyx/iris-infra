@@ -9,6 +9,7 @@ curl -sfL https://get.k3s.io | sh -
 
 # Configure Linux
 sysctl -w vm.max_map_count=524288
+echo -n "vm.max_map_count=524288" | sudo tee -a /etc/sysctl.conf
 
 # Clone repo
 git clone https://github.com/parabellyx/iris-infra.git
@@ -23,3 +24,5 @@ sed -i "s/##hostname##/$HOSTNAME/g" configs/keycloak.config
 kubectl kustomize | kubectl apply -f -
 
 unset KEYCLOAK_PASSWORD POSTGRES_PASSWORD SONAR_JDBC_PASSWORD
+
+sudo kubectl exec -it --namespace=appsec $(sudo kubectl get pods --namespace=appsec | awk '/jenkins/ {print $1}') -- cat /var/jenkins_home/secrets/initialAdminPassword > $HOME/jenkins_creds
