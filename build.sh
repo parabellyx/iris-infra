@@ -15,6 +15,7 @@ echo -n "vm.max_map_count=524288" | sudo tee -a /etc/sysctl.conf
 mkdir -p /opt/iris && cd /opt/iris
 git clone https://github.com/parabellyx/iris-infra.git
 cd iris-infra
+git checkout release/v0.1
 
 # Change the password based on env vars
 sed -i "s/##password##/$KEYCLOAK_PASSWORD/g" secrets/keycloak.secret
