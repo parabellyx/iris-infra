@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: docker.io/parabellyx/jenkins:0.1
+        image: docker.io/parabellyx/jenkins:0.2
         ports:
         - containerPort: 8080
         volumeMounts:
