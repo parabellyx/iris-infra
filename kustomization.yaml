@@ -11,7 +11,7 @@ resources:
 - k3s-postgresql
 - k3s-sonarqube
 - k3s-jenkins
-- k3s-keycloak
+#- k3s-keycloak
 
 configMapGenerator:
 - name: postgresql-config
