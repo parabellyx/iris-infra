@@ -3,6 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mainingress
+  namespace: appsec
   annotations:
     kubernetes.io/ingress.class: "traefik"
     traefik.frontend.rule.type: PathPrefixStrip
@@ -33,5 +34,5 @@ spec:
           #   backend:
           #     serviceName: portalfe
           #     servicePort: 3000
-  tls:
-    - secretName: tls-secrets
+  # tls:
+  #   - secretName: tls-secrets
