@@ -12,7 +12,7 @@ spec:
         app: postgresql
     spec:
       containers:
-        - image: postgres:13.4
+        - image: postgres:latest
           name: postgresql
           imagePullPolicy: "IfNotPresent"
           ports:

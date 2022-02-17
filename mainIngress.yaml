@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mainingress
@@ -17,16 +17,16 @@ spec:
         paths:
           - path: /sonar
             backend:
-              serviceName: sonarqube-service
-              servicePort: 9000
+              service:
+                name: sonarqube-service
+                port:
+                  number: 9000
           - path: /jenkins 
             backend:
-              serviceName: jenkins-service
-              servicePort: 8080
-          - path: /auth
-            backend:
-              serviceName: keycloak-service
-              servicePort: 8080
+              service:
+                name: jenkins-service
+                port: 
+                  number: 8080
           # - path: /
           #   backend:
           #     serviceName: portalfe

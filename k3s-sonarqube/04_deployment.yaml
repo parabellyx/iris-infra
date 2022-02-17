@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: sonarqube
-          image: sonarqube:9.1.0-community
+          image: sonarqube:latest
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 9000
