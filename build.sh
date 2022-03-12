@@ -18,10 +18,10 @@ cd iris-infra
 git checkout release/v0.2
 
 # Change the password based on env vars
-sed -i "s/##password##/$KEYCLOAK_PASSWORD/g" secrets/keycloak.secret
+# sed -i "s/##password##/$KEYCLOAK_PASSWORD/g" secrets/keycloak.secret
 sed -i "s/##password##/$POSTGRES_PASSWORD/g" secrets/pgsql.secret
 sed -i "s/##password##/$SONAR_JDBC_PASSWORD/g" secrets/pgsql.secret
-sed -i "s/##hostname##/$HOSTNAME/g" configs/keycloak.config
+# sed -i "s/##hostname##/$HOSTNAME/g" configs/keycloak.config
 
 kubectl kustomize | kubectl apply -f -
 
